@@ -1,3 +1,5 @@
 Flask
+Flask-RESTful
+joblib
 numpy
-tensorflow
+scikit-learn==1.5.0
