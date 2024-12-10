@@ -10,7 +10,8 @@ api = Api(app)
 # Load trained models
 ahu_model = joblib.load('AHU_2.pkl')
 chiller_model = joblib.load('chiller.pkl')
-lift_model = joblib.load('lift.pkl')
+lift_witel_model = joblib.load('lift_witel.pkl')
+lift_opmc_model = joblib.load('lift_opmc.pkl')
 
 # Helper function for anomaly detection
 def define_anomaly(predictions):
@@ -94,7 +95,7 @@ class Predict_Chiller(Resource):
         except Exception as e:
             return {"error": str(e)}, 500
 
-# Lift Model Predictions
+# Lift (Witel) Model Predictions
 class Predict_Lift(Resource):
     def post(self):
         try:
@@ -113,7 +114,36 @@ class Predict_Lift(Resource):
             hour, weekday = process_timestamp(timestamp)
             features = np.array([[usage, hour, weekday]])
             
-            prediction = lift_model.predict(features)
+            prediction = lift_witel_model.predict(features)
+            is_anomaly = bool(define_anomaly(prediction[0]))
+
+            return {
+                "anomaly": is_anomaly
+            }, 200
+
+        except Exception as e:
+            return {"error": str(e)}, 500
+
+# Lift (OPMC) Model Predictions
+class Predict_Lift_Opmc(Resource):
+    def post(self):
+        try:
+            input_data = request.json
+            if not input_data:
+                return {"error": "No input data provided"}, 400
+
+            timestamp = input_data.get("timestamp")
+            usage = input_data.get("usage")
+
+            if timestamp is None or usage is None:
+                return {
+                    "error": "Missing required fields: 'timestamp' and 'usage'"
+                }, 400
+
+            hour, weekday = process_timestamp(timestamp)
+            features = np.array([[usage, hour, weekday]])
+            
+            prediction = lift_opmc_model.predict(features)
             is_anomaly = bool(define_anomaly(prediction[0]))
 
             return {
@@ -126,7 +156,8 @@ class Predict_Lift(Resource):
 # Endpoints
 api.add_resource(Predict_AHU, '/predict_ahu')
 api.add_resource(Predict_Chiller, '/predict_chiller')
-api.add_resource(Predict_Lift, '/predict_lift')
+api.add_resource(Predict_Lift, '/predict_lift_witel')
+api.add_resource(Predict_Lift_Opmc, '/predict_lift_opmc')
 
 if __name__ == '__main__':
     app.run(debug=True)
