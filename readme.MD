@@ -20,7 +20,7 @@
 - [Acknowledgments](#acknowledgments)
 
 ## Project Overview
-This project focuses on energy usage anomaly detection within buildings. By leveraging machine learning models, we aim to detect unusual patterns or spikes in electricity consumption across different facility assets—such as Air Handling Units (AHUs), chillers, and lifts—enabling facility managers to identify and address potential issues before they become significant problems.
+This project focuses on energy usage anomaly detection within buildings. By leveraging machine learning models, we aim to detect unusual patterns or spikes in electricity consumption across different facility assets, such as Air Handling Units (AHUs), chillers, and lifts—enabling facility managers to identify and address potential issues before they become significant problems.
 
 ## Team Members
 - **M011B4KY1007** - Darren Christian Liharja  
@@ -46,7 +46,7 @@ Inefficient and excessive energy consumption often goes unnoticed, leading to hi
 2. **Feature Engineering & Preprocessing**: Clean, normalize, and structure data to ensure reliable model inputs.
 3. **Modeling & Anomaly Detection**: Experiment with and implement anomaly detection techniques (Isolation Forest, LSTM Autoencoders, etc.).
 4. **Deployment**: Integrate the model into a production environment for continuous monitoring, and provide a REST API for data querying and anomaly alerts.
-5. **Visualization & Reporting**: Create user-friendly dashboards and reports that highlight real-time anomalies and provide actionable recommendations.
+5. **Visualization & Reporting**: Create user friendly dashboards and reports that highlight real-time anomalies and provide actionable recommendations.
 
 ## Data Description
 The `data` directory contains a mix of CSV and Excel files representing historical and processed energy consumption data from various sources:
@@ -58,11 +58,11 @@ The `data` directory contains a mix of CSV and Excel files representing historic
 ### Preprocessing Steps
 - **Missing Value Handling**: Interpolate or impute missing measurements.
 - **Normalization/Scaling**: Apply min-max normalization or standard scaling for improved model performance.
-- **Feature Engineering**: Generate derived features such as rolling averages, lag features, or time-based indicators.
+- **Feature Engineering**: Generate derived features such as rolling averages, lag features, or time based indicators.
 
 ### Anomaly Detection Models
 - **Isolation Forest**: A tree-based anomaly detection method that isolates outliers by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature.
-- **LSTM Forecasting**: Long Short-Term Memory (LSTM) networks can be trained on historical time-series data to predict future energy consumption values.
+- **LSTM Forecasting**: Long Short-Term Memory (LSTM) networks can be trained on historical time series data to predict future energy consumption values.
 - **Autoencoder Anomaly Detection**: An autoencoder is a neural network designed to learn a compressed representation of normal data and then reconstruct it with minimal loss.
 
 ## Project Structure
@@ -110,8 +110,7 @@ ANOMALY-DETECTION/
 ## Installation & Setup
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/YourUsername/evomo-power-smart-detection.git
-   cd evomo-power-smart-detection
+   git clone https://github.com/Evomo-PowerSmart/Anomaly-Detection.git
    ```
 2. **Create and activate a virtual environment**:
    ```bash
@@ -139,8 +138,8 @@ ANOMALY-DETECTION/
   After running the API server, send a POST request with new energy usage data to the endpoint (e.g., `http://localhost:5000/predict_ahu`):
   ```bash
   curl -X POST http://localhost:5000/predict_ahu \
-    -H "Content-Type: application/json" \
-    -d '{"energy": [...]}'
+  -H "Content-Type: application/json" \
+  -d '{"timestamp": "2024-01-01 10:30:00", "usage": 150.0}'
   ```
   The response will indicate whether the input data points are anomalous.
 
