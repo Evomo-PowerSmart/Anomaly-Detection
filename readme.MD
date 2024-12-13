@@ -69,20 +69,6 @@ The `data` directory contains a mix of CSV and Excel files representing historic
 ```
 ANOMALY-DETECTION/
 │
-├─ data/
-│  ├─ AHU_Lantai_2.csv
-│  ├─ chiller_cleaned.xlsx
-│  ├─ Chiller_Witel_Jaksel.csv
-│  ├─ chiller.xlsx
-│  ├─ conv_chiller.csv
-│  ├─ conv_data.csv
-│  ├─ conv_lift.csv
-│  ├─ data_predicted.csv
-│  ├─ Historical Data.xlsx
-│  ├─ Lift_OPMC.csv
-│  ├─ Lift_Witel_Jaksel.csv
-│  └─ lift.xlsx
-│
 ├─ deployment/
 │  ├─ AHU_2.pkl
 │  ├─ api_model.py
